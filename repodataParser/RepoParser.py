@@ -1,9 +1,10 @@
-from urllib2 import urlopen
-from StringIO import StringIO
+from urllib.request import urlopen
+from io import BytesIO
 from gzip import GzipFile
 from xml.dom import minidom
 
 
+# https://raw.githubusercontent.com/iuscommunity/repodataParser/master/repodataParser/RepoParser.py
 class Parser:
     'A class for reading a Yum repos primary.xml.gz and returning data'
 
@@ -25,7 +26,7 @@ class Parser:
 
     def __decompress(self):
         'Attempts to decompress a string as Gzip'
-        buf = StringIO(self.res)
+        buf = BytesIO(self.res)
         f = GzipFile(fileobj=buf)
         try:
             self.content = f.read()
@@ -34,7 +35,7 @@ class Parser:
 
     def __dom(self):
         'get the XML dom object'
-        self.dom = minidom.parse(StringIO(self.content))
+        self.dom = minidom.parse(BytesIO(self.content))
 
     def __elements(self):
         'Get a Element by ID name'
@@ -74,5 +75,3 @@ class Parser:
             if pkg['name'][0] == package:
                 mypackages.append(pkg)
         return mypackages
-
-# vim: set syntax=python sw=4 ts=4 expandtab :
