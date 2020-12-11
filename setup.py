@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='repodataParser',
-    version='0.1',
+    version='0.2',
     description='A class for reading a Yum repos primary.xml.gz and returning data',
     long_description='',
     classifiers=[],
